@@ -3,10 +3,6 @@ package com.mao.rocket.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/**
- * @author qqy
- * @date 2020-05-13 09:10
- */
 @Controller
 public class LoginController {
 
@@ -15,9 +11,19 @@ public class LoginController {
     return "login_index";
   }
 
+  @GetMapping("/admin_login")
+  public String admin_index() {
+    return "admin_login_index";
+  }
+
   @GetMapping("/register")
   public String registerIndex() {
     return "register_index";
+  }
+
+  @GetMapping("/business/info")
+  public String info() {
+    return "info";
   }
 
 }

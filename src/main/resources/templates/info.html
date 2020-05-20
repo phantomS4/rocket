@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,14 +13,14 @@
 
 </head>
 <body class="text-center">
-<form id="register_form">
+<form id="info_form">
     <div class="form-group row">
         <label class="col-md-3"></label>
         <label class="col-md-3"></label>
     </div>
     <div class="form-group row">
         <label class="col-md-5"></label>
-        <label class="col-md-3"><h1>注册</h1></label>
+        <label class="col-md-3"><h1>基本信息</h1></label>
     </div>
     <div class="form-group row">
         <label class="col-md-3"></label>
@@ -30,14 +30,14 @@
         <label class="col-md-3"></label>
         <label for="name" class="col-md-2 col-form-label">name</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" th:value="${user.name}">
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-3"></label>
         <label for="mobile" class="col-md-2 col-form-label">mobile</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" id="mobile" name="mobile">
+            <input type="text" class="form-control" id="mobile" name="mobile" th:value="${user.mobile}">
         </div>
     </div>
 
@@ -45,21 +45,7 @@
         <label class="col-md-3"></label>
         <label for="password" class="col-md-2 col-form-label">password</label>
         <div class="col-md-4">
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-md-3"></label>
-        <label for="confirmPassword" class="col-md-2 col-form-label">confirm password</label>
-        <div class="col-md-4">
-            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-md-5"></label>
-        <div class="alert alert-primary col-md-4" role="alert" id="errorText">
+            <input type="password" class="form-control" id="password" name="password" th:value="${user.password}">
         </div>
     </div>
 
@@ -67,24 +53,24 @@
         <label class="form-check-label"></label>
     </div>
 
-    <button type="button" class="btn btn-primary" onclick="do_register()">Submit</button>
+    <button type="button" class="btn btn-primary" onclick="do_update()">更新</button> <a class="btn btn-primary" href="/business/market">返回</a>
 </form>
 
 <script>
-    function do_register() {
+    function do_update() {
         $("#errorText").text("");
         var o = {};
-        var fields = $("#register_form").serializeArray();
+        var fields = $("#info_form").serializeArray();
         $(fields).each(function () {
             o[this.name] = this.value;
         })
         $.ajax({
             type: "POST",
-            url: "/do_register",
+            url: "/business/do_update",
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify(o),
             error: function (message) {
-                $("#errorText").text("注册失败，请检查后重试");
+                $("#errorText").text("更新失败，请检查后重试");
             },
             success: function (message) {
                 window.location.href = "http://localhost:8080/login";

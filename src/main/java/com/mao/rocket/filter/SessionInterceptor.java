@@ -1,5 +1,8 @@
 package com.mao.rocket.filter;
 
+import com.mao.rocket.filter.context.UserContext;
+import com.mao.rocket.model.vo.User;
+import com.mao.rocket.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
@@ -29,12 +32,17 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
       response.sendRedirect("/login");
       return false;
     }
+    UserContext.USER.set(JsonUtils.from(session.getAttribute("user").toString(), User.class));
     return super.preHandle(request, response, handler);
   }
 
   @Override
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                          @Nullable ModelAndView modelAndView) throws Exception {
+    if (modelAndView != null) {
+      modelAndView.getModelMap().put("user", UserContext.USER.get());
+    }
+    UserContext.USER.remove();
     super.postHandle(request, response, handler, modelAndView);
   }
 }

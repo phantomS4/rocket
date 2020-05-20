@@ -1,9 +1,5 @@
 package com.mao.rocket.controller.mvc;
 
-/**
- * @author qqy
- * @date 2020-05-17 16:21
- */
 public class RegisterRequest {
   public String name;
   public String mobile;

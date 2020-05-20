@@ -12,9 +12,19 @@ create table `item` (
     `id`        bigint(20)  not null auto_increment primary key ,
     `name`      char(128)   not null ,
     `price`     bigint(20)  not null ,
-    `image`     char(128)   not null ,
+    `image`     text   not null ,
 
     unique `u_name` (`name`)
+);
+
+create table `bill` (
+    `id`        bigint(20)  not null auto_increment primary key ,
+    `user_id`   bigint(20)  not null ,
+    `amount`    bigint(20)  not null ,
+    `status`    char(20)    not null default 'PROCESSING',
+    `items`     text        not null ,
+
+    index `index__user_id` (`user_id`)
 );
 
 DROP TABLE IF EXISTS SPRING_SESSION_ATTRIBUTES;

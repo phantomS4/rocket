@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @author qqy
- * @date 2020-05-13 08:03
- */
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {

@@ -10,7 +10,7 @@ import java.util.List;
 public interface ItemDao {
 
   @Select("select * from item where id = #{id}")
-  User getOne(Long id);
+  Item getOne(Long id);
 
   @Select("select * from item where name=#{name}")
   User getOneByName(@Param("name") String mobile);
@@ -22,6 +22,6 @@ public interface ItemDao {
   void update(Item item);
 
   @Select("select * from item LIMIT #{offset},#{limit}")
-  List<User> list(@Param("limit") Integer limit, @Param("offset") Integer offset);
+  List<Item> list(@Param("limit") Integer limit, @Param("offset") Integer offset);
 
 }
