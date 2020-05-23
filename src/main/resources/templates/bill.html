@@ -69,6 +69,7 @@
             <td>
                 <div th:if="${user.type}">
                     <a th:name ="${bill.id}" class="bill_update btn btn-primary">完成</a>
+                    <a th:name ="${bill.id}" class="bill_delete btn btn-primary">删除</a>
                 </div>
             </td>
         </tr>
@@ -86,6 +87,24 @@
             $.ajax({
                 type: "POST",
                 url: "/business/market/updateBill",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(o),
+                error: function (message) {
+                    alert(JSON.stringify(message));
+                },
+                success: function (message) {
+                    window.location.href = "http://localhost:8080/business/bill";
+                },
+            });
+        });
+
+        $(".bill_delete").click(function () {
+            var val = $(this).attr("name");
+            var o = {};
+            o.id=val;
+            $.ajax({
+                type: "POST",
+                url: "/business/market/deleteBill",
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(o),
                 error: function (message) {

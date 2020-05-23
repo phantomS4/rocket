@@ -124,6 +124,10 @@
             ids[i] = items[i].value;
         }
         o.ids = ids;
+        if (ids.length === 0) {
+            alert("请选择菜品下单");
+            return;
+        }
         $.ajax({
             type: "POST",
             url: "/business/market/createBill",

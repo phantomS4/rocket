@@ -1,8 +1,11 @@
 package com.mao.rocket.controller;
 
 import com.mao.rocket.controller.mvc.CreateBillRequest;
+import com.mao.rocket.controller.mvc.DeleteBillRequest;
 import com.mao.rocket.controller.mvc.UpdateBillRequest;
+import com.mao.rocket.filter.context.UserContext;
 import com.mao.rocket.model.vo.Item;
+import com.mao.rocket.model.vo.User;
 import com.mao.rocket.service.MarketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,9 +44,16 @@ public class MarketController extends BaseController {
     marketService.updateBill(request.id);
   }
 
+  @ResponseBody
+  @PostMapping("/market/deleteBill")
+  public void deleteCreateBill(@RequestBody DeleteBillRequest request) {
+    marketService.updateBill(request.id);
+  }
+
   @GetMapping("/bill")
   public String goBill(ModelMap modelMap) {
-    modelMap.put("bills", marketService.getBills());
+    User user = UserContext.USER.get();
+    modelMap.put("bills", marketService.getBills(user.type, user.id));
     return "bill";
   }
 

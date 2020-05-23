@@ -49,8 +49,17 @@ public class MarketService {
     billDao.update(id, "FINISH");
   }
 
-  public List<BillResponse> getBills() {
-    List<Bill> bills = billDao.list(100, 0);
+  public void deleteBill(long id) {
+    billDao.delete(id);
+  }
+
+  public List<BillResponse> getBills(int userType, long userId) {
+    List<Bill> bills = new ArrayList<>();
+    if (userType == 0) {
+      bills = billDao.listByUserId(userId, 100, 0);
+    } else {
+      bills = billDao.list(100, 0);
+    }
     List<BillResponse> responses = new ArrayList<>();
     for (Bill bill : bills) {
       User user = userDao.getOne(bill.userId);

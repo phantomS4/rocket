@@ -19,6 +19,13 @@ public interface BillDao {
   @Results({@Result(property = "userId", column = "user_id")})
   List<Bill> list(@Param("limit") Integer limit, @Param("offset") Integer offset);
 
+  @Select("select * from bill where user_id=#{userId} limit #{offset},#{limit}")
+  @Results({@Result(property = "userId", column = "user_id")})
+  List<Bill> listByUserId(@Param("userId") long userId, @Param("limit") Integer limit, @Param("offset") Integer offset);
+
   @Update("update bill set status=#{status} where id=#{id}")
   void update(@Param("id") Long id, @Param("status") String status);
+
+  @Delete("delete from bill where id=#{id}")
+  void delete(Long id);
 }
