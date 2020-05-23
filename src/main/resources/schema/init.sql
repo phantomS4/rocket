@@ -11,7 +11,7 @@ create table `user` (
 create table `item` (
     `id`        bigint(20)  not null auto_increment primary key ,
     `name`      char(128)   not null ,
-    `price`     bigint(20)  not null ,
+    `price`     decimal(10, 2)  not null ,
     `image`     text   not null ,
 
     unique `u_name` (`name`)
@@ -20,7 +20,7 @@ create table `item` (
 create table `bill` (
     `id`        bigint(20)  not null auto_increment primary key ,
     `user_id`   bigint(20)  not null ,
-    `amount`    bigint(20)  not null ,
+    `amount`    decimal(10, 2)  not null ,
     `status`    char(20)    not null default 'PROCESSING',
     `items`     text        not null ,
 

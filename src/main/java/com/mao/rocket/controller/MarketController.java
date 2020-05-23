@@ -47,7 +47,7 @@ public class MarketController extends BaseController {
   @ResponseBody
   @PostMapping("/market/deleteBill")
   public void deleteCreateBill(@RequestBody DeleteBillRequest request) {
-    marketService.updateBill(request.id);
+    marketService.deleteBill(request.id);
   }
 
   @GetMapping("/bill")

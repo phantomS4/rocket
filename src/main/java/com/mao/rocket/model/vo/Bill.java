@@ -7,7 +7,7 @@ import java.util.List;
 public class Bill {
   public long id;
   public long userId;
-  public long amount;
+  public double amount;
   public String status;
   public String items;
 
@@ -37,11 +37,11 @@ public class Bill {
     this.userId = userId;
   }
 
-  public long getAmount() {
+  public double getAmount() {
     return amount;
   }
 
-  public void setAmount(long amount) {
+  public void setAmount(double amount) {
     this.amount = amount;
   }
 

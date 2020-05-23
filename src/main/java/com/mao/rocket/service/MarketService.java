@@ -69,6 +69,7 @@ public class MarketService {
       response.status = bill.status.equals("PROCESSING") ? "进行中" : "完成";
       response.items = JsonUtils.from(bill.items, new TypeReference<List<Item>>(){});
       response.amount = bill.amount;
+      System.out.println("#### amount:" + bill.amount);
       responses.add(response);
     }
     return responses;
