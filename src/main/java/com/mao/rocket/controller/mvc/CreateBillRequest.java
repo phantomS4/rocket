@@ -3,5 +3,5 @@ package com.mao.rocket.controller.mvc;
 import java.util.List;
 
 public class CreateBillRequest {
-  public List<Long> ids;
+  public List<Info> infos;
 }

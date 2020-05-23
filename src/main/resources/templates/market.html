@@ -103,9 +103,15 @@
             <div class="card-body">
                 <img th:src="${item.image}" class="card-img-top" alt="..." width="100" height="100">
                 <p class="card-title" th:text="'菜品:'+${item.name}"></p>
-                <p class="card-text" ><small class="text-muted" th:text="'价格:'+${item.price}+'元'"></small></p>
+                <p class="card-text" ><small class="text-muted" th:text="'价格:'+${item.price}+'元/斤'"></small></p>
                 <label>
-                    <input name="item_choose" type="checkbox" th:value="${item.id}"> 选择
+                    <div class="input-group mb-1">
+                        <input th:id="${item.id}"  type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                            <span class="input-group-text">斤</span>
+                        </div>
+                    </div>
+                    <input name="item_choose" type="checkbox" th:value="${item.id}"> 选定
                 </label>
             </div>
         </div>
@@ -119,15 +125,25 @@
     function add_bill() {
         var o = {};
         var items = $("input[name='item_choose']:checked");
-        var ids = [];
+        var infos = [];
+
         for (var i = 0; i < items.length; i++) {
-            ids[i] = items[i].value;
+            var info = {};
+            info.id=items[i].value;
+            info.weight=$("#"+items[i].value).val();
+            if (info.weight === "") {
+                alert("请选中菜品输入重量");
+                return;
+            }
+            infos[i] = info;
         }
-        o.ids = ids;
-        if (ids.length === 0) {
+
+        o.infos = infos;
+        if (infos.length === 0) {
             alert("请选择菜品下单");
             return;
         }
+
         $.ajax({
             type: "POST",
             url: "/business/market/createBill",

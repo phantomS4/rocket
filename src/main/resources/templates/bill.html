@@ -55,12 +55,14 @@
                     <tr>
                         <th style="width: 50px;">菜品</th>
                         <th style="width: 50px;">金额</th>
+                        <th style="width: 50px;">重量</th>
                     </tr>
                     </thead>
 
                     <tr th:each="item:${bill.items}">
-                        <td th:text="${item.name}"></td>
-                        <td th:text="${item.price}"></td>
+                        <td th:text="${item.item.name}"></td>
+                        <td th:text="${item.item.price}"></td>
+                        <td th:text="${item.weight}"></td>
                     </tr>
 
                 </table>

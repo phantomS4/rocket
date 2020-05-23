@@ -1,5 +1,6 @@
 package com.mao.rocket.model.vo;
 
+import com.mao.rocket.controller.mvc.BillInfo;
 import com.mao.rocket.utils.JsonUtils;
 
 import java.util.List;
@@ -11,12 +12,12 @@ public class Bill {
   public String status;
   public String items;
 
-  public static Bill from(List<Item> items, long userId) {
+  public static Bill from(List<BillInfo> billInfos, long userId) {
     Bill bill = new Bill();
     bill.userId = userId;
-    bill.items = JsonUtils.toString(items);
-    for (Item item : items) {
-      bill.amount += item.price;
+    bill.items = JsonUtils.toString(billInfos);
+    for (BillInfo billInfo : billInfos) {
+      bill.amount += billInfo.item.price * billInfo.weight;
     }
     return bill;
   }

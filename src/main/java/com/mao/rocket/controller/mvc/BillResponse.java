@@ -1,7 +1,5 @@
 package com.mao.rocket.controller.mvc;
 
-import com.mao.rocket.model.vo.Item;
-
 import java.util.List;
 
 public class BillResponse {
@@ -9,5 +7,5 @@ public class BillResponse {
   public String userName;
   public double amount;
   public String status;
-  public List<Item> items;
+  public List<BillInfo> items;
 }

@@ -35,7 +35,7 @@ public class MarketController extends BaseController {
   @ResponseBody
   @PostMapping("/market/createBill")
   public void addCreateBill(@RequestBody CreateBillRequest request) {
-    marketService.createBill(request.ids);
+    marketService.createBill(request.infos);
   }
 
   @ResponseBody

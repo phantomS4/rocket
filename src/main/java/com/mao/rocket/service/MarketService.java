@@ -1,7 +1,9 @@
 package com.mao.rocket.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.mao.rocket.controller.mvc.BillInfo;
 import com.mao.rocket.controller.mvc.BillResponse;
+import com.mao.rocket.controller.mvc.Info;
 import com.mao.rocket.filter.context.UserContext;
 import com.mao.rocket.model.BillDao;
 import com.mao.rocket.model.ItemDao;
@@ -35,12 +37,15 @@ public class MarketService {
     return itemDao.list(Integer.MAX_VALUE, 0);
   }
 
-  public void createBill(List<Long> itemIds) {
-    List<Item> items = new ArrayList<>();
-    for (Long id : itemIds) {
-      items.add(itemDao.getOne(id));
+  public void createBill(List<Info> infos) {
+    List<BillInfo> billInfos = new ArrayList<>();
+    for (Info info: infos) {
+      BillInfo billInfo = new BillInfo();
+      billInfo.item = itemDao.getOne(info.id);
+      billInfo.weight = info.weight;
+      billInfos.add(billInfo);
     }
-    Bill bill = Bill.from(items, UserContext.USER.get().id);
+    Bill bill = Bill.from(billInfos, UserContext.USER.get().id);
     billDao.create(bill);
     System.out.println("bill:" + JsonUtils.toString(bill));
   }
@@ -67,9 +72,8 @@ public class MarketService {
       response.id = bill.id;
       response.userName = user != null ? user.name : null;
       response.status = bill.status.equals("PROCESSING") ? "进行中" : "完成";
-      response.items = JsonUtils.from(bill.items, new TypeReference<List<Item>>(){});
+      response.items = JsonUtils.from(bill.items, new TypeReference<List<BillInfo>>(){});
       response.amount = bill.amount;
-      System.out.println("#### amount:" + bill.amount);
       responses.add(response);
     }
     return responses;
