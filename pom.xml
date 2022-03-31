@@ -21,7 +21,7 @@
   </build>
 
   <properties>
-    <springboot.verson>2.1.6.RELEASE</springboot.verson>
+    <springboot.verson>2.5.12</springboot.verson>
   </properties>
 
   <dependencies>
